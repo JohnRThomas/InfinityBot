@@ -1,1 +1,0 @@
-Note that all classes within the x package will be xBooted upon start up of the JVM due to them being referenced by the canvas or things referenced by the canvas.
