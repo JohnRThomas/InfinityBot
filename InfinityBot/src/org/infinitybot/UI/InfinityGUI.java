@@ -9,7 +9,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.Image;
 import java.awt.Point;
 
 import java.awt.GridLayout;
@@ -23,12 +22,15 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
@@ -54,7 +56,11 @@ public class InfinityGUI extends JFrame{
 		new Console();
 		SwingUtilities.invokeLater(new Runnable() {  
 			public void run() {  
-				try {  
+				try {
+					JFrame.setDefaultLookAndFeelDecorated(true);
+					JDialog.setDefaultLookAndFeelDecorated(true);
+					JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+					ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
 					UIManager.setLookAndFeel(new SubstanceOfficeBlack2007LookAndFeel());
 				} catch (Exception e) {}  
 				//new ScriptSelectionGUI(null).setVisible(true);

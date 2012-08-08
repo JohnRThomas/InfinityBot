@@ -16,6 +16,12 @@ public class Boot {
 			builder.append(location.substring(1)).append("\"");
 			builder.append(" -Xmx1024m");
 			builder.append(" -Xbootclasspath/p:\"");
+			if(new File("./lib/substance.jar").exists()){
+
+			}else{
+				System.out.println("failed to find substance");
+			}
+
 			builder.append("./lib/substance.jar;./lib/trident.jar;./lib/Icons.jar;./lib/InfinityX.jar");
 			builder.append("\" org.infinitybot.UI.InfinityGUI");
 			Runtime.getRuntime().exec(builder.toString());

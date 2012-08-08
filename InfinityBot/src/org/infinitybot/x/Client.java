@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GameCanvas;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -73,7 +72,7 @@ public class Client extends Container{
 	private String status = "(Gathering information)";
 	JPanel splash = new JPanel(){
 		private static final long serialVersionUID = 376248046061283699L;
-		public void paintComponent(Graphics2D g) {
+		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 10000, 10000);
