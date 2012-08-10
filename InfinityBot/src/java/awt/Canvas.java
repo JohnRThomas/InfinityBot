@@ -23,7 +23,7 @@ public class Canvas extends GameCanvas implements Accessible {
 
 	public Canvas(final GraphicsConfiguration config) {
 		this();
-		this.graphicsConfig = config;
+		super.setGraphicsConfiguration(config);
 	}
 
 	@Override

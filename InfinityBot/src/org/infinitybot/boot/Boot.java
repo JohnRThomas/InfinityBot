@@ -18,8 +18,11 @@ public class Boot {
 			builder.append(" -Xbootclasspath/p:\"");
 			if(new File("./lib/substance.jar").exists()){
 
+			}else if(new File("./lib/InfinityBotX.jar").exists()){
+				System.out.println("Failed to find InfinityX!");
+
 			}else{
-				System.out.println("failed to find substance");
+				System.out.println("Failed to find substance!");
 			}
 
 			builder.append("./lib/substance.jar;./lib/trident.jar;./lib/Icons.jar;./lib/InfinityX.jar");
