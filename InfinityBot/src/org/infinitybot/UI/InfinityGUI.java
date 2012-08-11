@@ -57,8 +57,8 @@ public class InfinityGUI extends JFrame{
 		SwingUtilities.invokeLater(new Runnable() {  
 			public void run() {  
 				try {
-					JFrame.setDefaultLookAndFeelDecorated(true);
-					JDialog.setDefaultLookAndFeelDecorated(true);
+					JFrame.setDefaultLookAndFeelDecorated(false);
+					JDialog.setDefaultLookAndFeelDecorated(false);
 					JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 					ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
 					UIManager.setLookAndFeel(new SubstanceOfficeBlack2007LookAndFeel());

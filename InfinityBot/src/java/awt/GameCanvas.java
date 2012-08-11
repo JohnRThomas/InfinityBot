@@ -6,8 +6,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import org.infinitybot.x.Client;
-
 public class GameCanvas extends Component {
 	private static final long serialVersionUID = 1619048979922541067L;
 	public BufferedImage image = null;
@@ -31,10 +29,10 @@ public class GameCanvas extends Component {
 				id = canvases.get(i).id;
 				canvases.set(i, this);
 				try{
-					Client.get(id).updateCanvas(this);
-					this.addMasterMouseListener(Client.get(id).getMouse());
-					this.addMasterMouseMotionListener(Client.get(id).getMouse());
-					this.addMasterKeyListener(Client.get(id).getKeyboard());
+					ClientList.get(id).updateCanvas(this);
+					this.addMasterMouseListener(ClientList.get(id).getMouse());
+					this.addMasterMouseMotionListener(ClientList.get(id).getMouseMotion());
+					this.addMasterKeyListener(ClientList.get(id).getKeyboard());
 				}catch(Exception e){}
 				return;
 			}
@@ -42,9 +40,9 @@ public class GameCanvas extends Component {
 		id = count++;
 		canvases.add(this);
 		try{
-			this.addMasterMouseListener(Client.get(id).getMouse());
-			this.addMasterMouseMotionListener(Client.get(id).getMouse());
-			this.addMasterKeyListener(Client.get(id).getKeyboard());
+			this.addMasterMouseListener(ClientList.get(id).getMouse());
+			this.addMasterMouseMotionListener(ClientList.get(id).getMouseMotion());
+			this.addMasterKeyListener(ClientList.get(id).getKeyboard());
 		}catch(Exception e){}
 	}
 
@@ -61,9 +59,9 @@ public class GameCanvas extends Component {
 			plainImage = new BufferedImage(784, 562, 1);
 			plainImage.getGraphics().drawImage(image, 0, 0, null);
 			try{
-				Client.get(id).draw(image.getGraphics());
+				ClientList.get(id).draw(image.getGraphics());
 			}catch(Exception e) {
-				Client.get(id).log("Painter", e.getMessage());
+				ClientList.get(id).log("Painter", e.getMessage());
 			}
 			super.getGraphics().drawImage(image, 0, 0, null);
 		}

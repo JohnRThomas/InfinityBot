@@ -4,6 +4,8 @@ import icons.IconFactory;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
+import java.awt.ClientActions;
+import java.awt.ClientList;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -16,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.Box;
@@ -39,11 +40,10 @@ import org.infinitybot.x.scripts.Runner;
 import org.infinitybot.x.scripts.ScriptSelectionGUI;
 
 
-public class Client extends Container{
+public class Client extends Container implements ClientActions{
 	private static final long serialVersionUID = 2014843184188029061L;
 	private GameLoader loader;
 	private final GameCanvas canvasAccess = new GameCanvas(-1);
-	private static ArrayList<Client> clients = new ArrayList<Client>();
 	private final int id;
 	private Runner scriptRunner;
 	private MouseManager mouse;
@@ -96,7 +96,7 @@ public class Client extends Container{
 		add(splash,BorderLayout.CENTER);
 		add(logScroller,BorderLayout.SOUTH);
 		id = canvasAccess.count;
-		clients.add(this);
+		ClientList.add(this);
 	}	
 	public void init(){
 		mouse = new MouseManager(this);
@@ -153,7 +153,9 @@ public class Client extends Container{
 	public MouseManager getMouse() {
 		return mouse;
 	}
-
+	public MouseManager getMouseMotion() {
+		return mouse;
+	}
 	public KeyboardManager getKeyboard() {
 		return keyboard;
 	}
@@ -174,7 +176,7 @@ public class Client extends Container{
 		}
 		mouse = null;
 		keyboard = null;
-		clients.remove(this);
+		ClientList.remove(this);
 		myAPIManager = null;
 		scriptRunner = null;
 	}
@@ -373,9 +375,9 @@ public class Client extends Container{
 		getMouse().cancan = gameCanvas;
 	}
 	public static Client get(int id) {
-		for(int i = 0; i < clients.size(); i++){
-			if(clients.get(i).id == id){
-				return clients.get(i);
+		for(int i = 0; i < ClientList.getList().size(); i++){
+			if(((Client)ClientList.get(i)).id == id){
+				return (Client) ClientList.get(i);
 			}
 		}
 		return null;
