@@ -29,10 +29,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import org.infinity.bot.Client;
-import org.infinity.bot.internals.ui.InfinityButton;
 import org.infinity.bot.api.Script;
 import org.infinity.bot.api.ScriptManifest;
 import org.infinity.bot.api.ScriptManifest.Categories;
+import org.infinity.ui.InfinityButton;
 
 
 public class ScriptSelectionGUI extends JDialog{

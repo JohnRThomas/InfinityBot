@@ -31,13 +31,13 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import org.infinity.bot.internals.ui.InfinityLog;
 import org.infinity.bot.api.APIManager;
 import org.infinity.bot.api.Script;
 import org.infinity.bot.internals.loader.DownloadThread;
 import org.infinity.bot.internals.loader.GameLoader;
 import org.infinity.bot.internals.script.Runner;
 import org.infinity.bot.internals.script.ScriptSelectionGUI;
+import org.infinity.ui.InfinityLog;
 
 
 public class Client extends Container implements ClientActions{

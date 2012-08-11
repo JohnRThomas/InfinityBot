@@ -37,10 +37,9 @@ import javax.swing.ToolTipManager;
 
 import javax.swing.border.EtchedBorder;
 
+import org.infinity.Console;
 import org.infinity.bot.Client;
-import org.infinity.bot.Console;
 
-import org.infinity.bot.internals.ui.InfinityButton;
 
 import org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel;
 
