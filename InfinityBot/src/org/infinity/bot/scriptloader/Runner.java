@@ -12,7 +12,7 @@ public class Runner extends Thread {
 	private Client myClient;
 
 	private boolean isPaused = false;
-	
+
 	public Runner(final Script curScript, final Client cli) {
 		this.curScript = curScript;
 		setMyClient(cli);
@@ -26,16 +26,24 @@ public class Runner extends Thread {
 					Time.sleep(5, 10);
 					continue;
 				}
-				final int sleep = curScript.loop();
-				if (sleep < 0) {
+				try{
+					final int sleep = curScript.loop();
+					if (sleep < 0) {
+						break;
+					}
+					Time.sleep(sleep);
+				}catch(Exception e){
+					//Prints the exception if the script has a run time exception.
+					//TODO redirect to log
+					e.printStackTrace();
 					break;
 				}
-				Time.sleep(sleep);
 			}
 			curScript.onStop();
 		} else {
 			getMyClient().log("ScriptLoader", "Script bloked itself from starting!");
 		}
+
 	}
 
 	public void setPause(boolean pause) {

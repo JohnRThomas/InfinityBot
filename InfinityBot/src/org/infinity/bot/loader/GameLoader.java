@@ -34,7 +34,7 @@ public class GameLoader {
 	final String baseLink = "http://www.runescape.com/game.ws?j=1";
 	private String HTML = null;
 	private String URL = null;
-	private Applet loader;
+	private Applet applet;
 	private String link = "";
 	private HashMap<String, byte[]> clientfiles;
 	private AppletLoaderContext context = new AppletLoaderContext();
@@ -51,10 +51,10 @@ public class GameLoader {
 				final HashMap<String, Object> files = getJarFiles(context.getCodeBase() + "/" + jarName);
 				clientfiles = AES.decryptPack(context.getParameter("0"), context.getParameter("-1"), (InputStream) files.get("inner.pack.gz"));
 				myClient.setStatus("Starting Game");
-				loader = new RS2Applet(clientfiles);
-				loader.setStub(context);
-				loader.init();
-				loader.start();
+				applet = new RS2Applet(clientfiles);
+				applet.setStub(context);
+				applet.init();
+				applet.start();
 			} catch (Exception e) {
 				myClient.setStatus("Failed to use exsiting files!)\n(Downloading GamePack");
 				downloadFile(URL);
@@ -63,10 +63,10 @@ public class GameLoader {
 				final HashMap<String, Object> files = getJarFiles(context.getCodeBase() + "/" + jarName);
 				clientfiles = AES.decryptPack(context.getParameter("0"), context.getParameter("-1"), (InputStream) files.get("inner.pack.gz"));
 				myClient.setStatus("Starting Game");
-				loader = new RS2Applet(clientfiles);
-				loader.setStub(context);
-				loader.init();
-				loader.start();
+				applet = new RS2Applet(clientfiles);
+				applet.setStub(context);
+				applet.init();
+				applet.start();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,10 +76,10 @@ public class GameLoader {
 	}
 
 	public void restart() {
-		loader = new RS2Applet(clientfiles);
-		loader.setStub(context);
-		loader.init();
-		loader.start();
+		applet = new RS2Applet(clientfiles);
+		applet.setStub(context);
+		applet.init();
+		applet.start();
 	}
 
 	public void appletResize(final int width, final int height) {
@@ -205,6 +205,7 @@ public class GameLoader {
 					continue;
 				}
 				final byte[] buffer = new byte[in.available()];
+				in.close();
 				if (entry.getName().endsWith(".class")) {
 					classfiles.put(entry.getName().replaceAll("\\.class", ""), buffer);
 				} else {
@@ -223,6 +224,10 @@ public class GameLoader {
 	}
 
 	public Applet getApplet() {
-		return loader;
+		return applet;
+	}
+	public void destroy(){
+		applet.stop();
+		applet.destroy();
 	}
 }

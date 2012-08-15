@@ -31,9 +31,7 @@ public class Time {
 	public static void sleep(final int millis) {
 		try {
 			Thread.sleep(millis);
-		} catch (final InterruptedException e) {
-			e.printStackTrace();
-		}
+		} catch (final InterruptedException e) {}
 	}
 
 	public static void sleep(final int min, final int max) {

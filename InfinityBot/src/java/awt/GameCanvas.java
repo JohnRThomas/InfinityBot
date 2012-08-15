@@ -3,6 +3,7 @@ package java.awt;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class GameCanvas extends Component {
 	private MouseListener slaveMouseListener = null;
 	private MouseMotionListener slaveMouseMotionListener = null;
 	private KeyListener slaveKeyListener = null;
+	private MouseWheelListener slaveMouseWheelListener = null;
 
 
 	public GameCanvas() {
@@ -32,6 +34,7 @@ public class GameCanvas extends Component {
 					ClientList.get(id).updateCanvas(this);
 					this.addMasterMouseListener(ClientList.get(id).getMouse());
 					this.addMasterMouseMotionListener(ClientList.get(id).getMouseMotion());
+					this.addMasterMouseWheelListener(ClientList.get(id).getMouseWheel());
 					this.addMasterKeyListener(ClientList.get(id).getKeyboard());
 				}catch(Exception e){}
 				return;
@@ -42,6 +45,7 @@ public class GameCanvas extends Component {
 		try{
 			this.addMasterMouseListener(ClientList.get(id).getMouse());
 			this.addMasterMouseMotionListener(ClientList.get(id).getMouseMotion());
+			this.addMasterMouseWheelListener(ClientList.get(id).getMouseWheel());
 			this.addMasterKeyListener(ClientList.get(id).getKeyboard());
 		}catch(Exception e){}
 	}
@@ -56,24 +60,22 @@ public class GameCanvas extends Component {
 	    }catch(InterruptedException e) {}
 	    
 		if (super.getGraphics() != null && graphics != null) {
-			plainImage = new BufferedImage(784, 562, 1);
-			plainImage.getGraphics().drawImage(image, 0, 0, null);
+//			plainImage = new BufferedImage(784, 562, 1);
+//			plainImage.getGraphics().drawImage(image, 0, 0, null);
 			try{
 				ClientList.get(id).draw(image.getGraphics());
 			}catch(Exception e) {
-				ClientList.get(id).log("Painter", e.getMessage());
+				e.printStackTrace();
+				//ClientList.get(id).log("Painter", e.getMessage());
 			}
 			super.getGraphics().drawImage(image, 0, 0, null);
 		}
 		return graphics = image.createGraphics();
 	}
 	public BufferedImage getImage(){
-		return plainImage;
+		return image;
 	}
 	
-	public BufferedImage getPlainImage(){
-		return plainImage;
-	}
 	public static ArrayList<GameCanvas> getList() {
 		return canvases;
 	}
@@ -102,6 +104,15 @@ public class GameCanvas extends Component {
 	public void addMasterMouseMotionListener(MouseMotionListener msl) {
 		addMouseMotionListener(msl, false);
 	}
+	
+	public void addMouseWheelListener(MouseWheelListener mwl, boolean fromCanvas) {
+		if(fromCanvas) slaveMouseWheelListener = mwl;
+		else super.addMouseWheelListener(mwl);
+	}
+	
+	public void addMasterMouseWheelListener(MouseWheelListener mwl) {
+		addMouseWheelListener(mwl, false);
+	}
 
 	public MouseMotionListener getSlaveMouseMotionListener() {
 		return slaveMouseMotionListener;
@@ -124,5 +135,9 @@ public class GameCanvas extends Component {
 	}
 	public KeyListener getSlaveKeyListener() {
 		return slaveKeyListener;
+	}
+
+	public MouseWheelListener getSlaveMouseWheelListener() {
+		return slaveMouseWheelListener ;
 	}
 }

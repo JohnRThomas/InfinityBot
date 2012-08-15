@@ -52,9 +52,12 @@ public class ScriptLoader{
 				try{
 					FileInputStream in = new FileInputStream(classList.get(i));
 					list.add(loadClass(name,in,classList.get(i).length()));
+					in.close();
 				}catch(NegativeArraySizeException e){
 					myClient.log("ScriptLoader", "Script: " + classList.get(i).getName() + "is too large!");
 				}catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
@@ -66,6 +69,7 @@ public class ScriptLoader{
 			byte [] bytes = new byte[(int) length];
 			inp.read(bytes);
 			FileLoader loady = new FileLoader(new URL[0], ScriptLoader.class.getClassLoader());
+			inp.close();
 			return loady.makeClass(name, bytes, 0, bytes.length);
 		} catch (IOException e) {
 
@@ -74,15 +78,19 @@ public class ScriptLoader{
 	}
 
 	private void goDeeper(File[] classes, ArrayList<File> classList) {
-		for(int i = 0; i < classes.length; i++){
-			if(classes[i].listFiles() == null){
-				if(classes[i].getName().endsWith(".class")|| classes[i].getName().endsWith(".jar")||classes[i].getName().endsWith(".zip")){
-					classList.add(classes[i]);
+		try{
+			for(int i = 0; i < classes.length; i++){
+				if(classes[i].listFiles() == null){
+					if(classes[i].getName().endsWith(".class")|| classes[i].getName().endsWith(".jar")||classes[i].getName().endsWith(".zip")){
+						classList.add(classes[i]);
+					}
+				}else{
+					goDeeper(classes[i].listFiles(),classList);
 				}
-			}else{
-				goDeeper(classes[i].listFiles(),classList);
-			}
-		}		
+			}	
+		}catch(NullPointerException e){
+			System.out.println("No Scrtips found!");
+		}
 	}
 
 	synchronized public void addFileToClasspath(String name, FileLoader load)throws MalformedURLException, ClassNotFoundException {

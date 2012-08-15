@@ -15,6 +15,7 @@ import java.awt.GameCanvas;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -84,6 +85,8 @@ public class Client extends Container implements ClientActions{
 	};
 	private Script myScript = null;
 	private APIManager myAPIManager;
+	private boolean showMouse = true;
+	private boolean showColor = true;
 
 	@SuppressWarnings("static-access")
 	public Client(){
@@ -134,9 +137,26 @@ public class Client extends Container implements ClientActions{
 		}
 		inputB.setEnabled(true);
 	}
-	public void draw(Graphics graphics){
-		graphics.setColor(Color.WHITE);
-		if(isScriptRunning)myScript.paint(graphics);
+	public void draw(Graphics g){
+		g.setColor(Color.WHITE);
+		if(isScriptRunning)myScript.paint(g);
+		int idy = 20;
+		g.setColor(Color.WHITE);
+		if(showMouse)g.drawString("Mouse position: (" + mouse.x+ ", " + mouse.y +")", 5, idy);
+		if(showColor ){
+			g.drawString("Color: ", 5, idy+=20);
+			Color col;
+			try{
+				col = new Color(getImage().getRGB(mouse.x, mouse.y));
+			}catch(ArrayIndexOutOfBoundsException e){
+				col = Color.BLACK;
+			}
+			g.setColor(col);
+			g.fillRect(40, idy-10, 20, 15);
+			g.setColor(Color.WHITE);
+			g.drawRect(40, idy-10, 20, 15);
+			g.drawString("(R: " + col.getRed() + "G: " + col.getGreen() + "B: " + col.getBlue() + ") RGB: " + col.getRGB(),75,idy);
+		}
 	}
 	public Applet getApplet() {
 		return loader.getApplet();
@@ -150,12 +170,19 @@ public class Client extends Container implements ClientActions{
 	public BufferedImage getImage(){
 		return canvasAccess.get(id).image;
 	}
+	@Override
 	public MouseManager getMouse() {
 		return mouse;
 	}
+	@Override
 	public MouseManager getMouseMotion() {
 		return mouse;
 	}
+	@Override
+	public MouseWheelListener getMouseWheel() {
+		return mouse;
+	}
+	@Override
 	public KeyboardManager getKeyboard() {
 		return keyboard;
 	}
@@ -168,6 +195,7 @@ public class Client extends Container implements ClientActions{
 		return inputEnabled;
 	}
 
+	@Override
 	public void destroy(){
 		if(loader != null){
 			loader.getApplet().stop();
@@ -188,6 +216,7 @@ public class Client extends Container implements ClientActions{
 	}
 
 	public void reStartScript(){
+
 		if(myScript != null){
 			scriptRunner = new Runner(myScript, this);
 			scriptRunner.start();
@@ -195,6 +224,8 @@ public class Client extends Container implements ClientActions{
 			isScriptRunning = true;
 		}
 		enableButtons();
+
+
 	}
 	public void stopScript(){
 		scriptRunner.interrupt();

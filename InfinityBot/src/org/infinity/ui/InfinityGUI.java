@@ -2,6 +2,7 @@ package org.infinity.ui;
 
 import icons.IconFactory;
 
+import java.awt.ClientList;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Point;
@@ -20,13 +21,10 @@ import java.awt.event.MouseMotionAdapter;
 
 import java.awt.image.BufferedImage;
 
-import java.util.ArrayList;
-
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.UIManager;
 import javax.swing.JPopupMenu;
@@ -46,8 +44,6 @@ import org.pushingpixels.substance.api.skin.SubstanceOfficeBlack2007LookAndFeel;
 
 public class InfinityGUI extends JFrame {
 	private static final long serialVersionUID = -525789742766444583L;
-
-	private static ArrayList<Client> clients = new ArrayList<Client>();
 	static JTabbedPane tabs = new JTabbedPane();
 	private int visCount = 1;
 
@@ -168,13 +164,10 @@ public class InfinityGUI extends JFrame {
 		tabs.setTabComponentAt(count - 1, newTabB);
 		tabs.setSelectedIndex(count - 1);
 		this.repaint();
-		clients.add(newTab);
-		this.repaint();
 		newTab.init();
 	}
 
 	public static void removeClient(int i) {
-		clients.get(i).destroy();
-		clients.remove(i);
+		ClientList.get(i).destroy();
 	}
 }

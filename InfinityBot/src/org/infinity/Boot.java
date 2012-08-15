@@ -17,10 +17,17 @@ public class Boot {
 			builder.append(location.substring(1)).append("\"");
 			builder.append(" -Xmx1024m");
 			builder.append(" -Xbootclasspath/p:\"");
-			if (new File("./lib/substance.jar").exists()){
-				// download lib
-			} else {
-				System.out.println("failed to find substance");
+			if (!new File("./lib/substance.jar").exists()){
+				
+			}
+			if (!new File("./lib/InfinityX.jar").exists()){
+				
+			}
+			if (!new File("./lib/trident.jar").exists()){
+				
+			}
+			if (!new File("./lib/Icons.jar").exists()){
+				
 			}
 			builder.append("./lib/substance.jar;./lib/trident.jar;./lib/Icons.jar;./lib/InfinityX.jar");
 			builder.append("\" org.infinity.ui.InfinityGUI");

@@ -20,4 +20,8 @@ public class ClientList {
 		return clients;
 	}
 
+	public static void remove(int i) {
+		clients.remove(i);
+	}
+
 }

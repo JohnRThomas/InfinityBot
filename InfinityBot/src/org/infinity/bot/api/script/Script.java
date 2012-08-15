@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public abstract class Script {
+public abstract class Script{
 
 	private static boolean isPaused = false;
 	private final ScriptManifest manifest;
@@ -24,7 +24,7 @@ public abstract class Script {
 		manifest = getClass().getAnnotation(ScriptManifest.class);
 	}
 
-	public Script init(final Runner runner, final APIManager api) {
+	public final Script init(final Runner runner, final APIManager api) {
 		this.api = api;
 		mouse = new Mouse(api);
 		keyboard = new Keyboard(api);
@@ -37,7 +37,7 @@ public abstract class Script {
 		return true;
 	}
 
-	public void onStop() {
+	public void onStop(){
 	}
 
 	public abstract int loop();
@@ -45,15 +45,15 @@ public abstract class Script {
 	public void paint(final Graphics graphics) {
 	}
 
-	public void log(final Object str) {
+	public final void log(final Object str) {
 		runner.getMyClient().log(manifest.Name(), str);
 	}
 
-	public void log(final Object str, final Color textCol) {
+	public final void log(final Object str, final Color textCol) {
 		runner.getMyClient().log(manifest.Name(), str, textCol);
 	}
 
-	public void log(final Object str, final Color textCol, final Color backCol) {
+	public final void log(final Object str, final Color textCol, final Color backCol) {
 		runner.getMyClient().log(manifest.Name(), str, textCol, backCol);
 	}
 

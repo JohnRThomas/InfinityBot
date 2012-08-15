@@ -6,9 +6,11 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 
-public class MouseManager  extends Component implements MouseListener, MouseMotionListener{
+public class MouseManager  extends Component implements MouseListener, MouseMotionListener, MouseWheelListener{
 	private static final long serialVersionUID = -6083468090663688500L;
 
 	protected GameCanvas cancan;
@@ -21,6 +23,7 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 	public void mouseClicked(MouseEvent e) {
 		try{
 			if(myClient.isInputEnabled() || e.getSource() == this){
+				System.out.println(e.toString());
 				e.setSource(cancan);
 				x = e.getX();
 				y = e.getY();cancan.getSlaveMouseListener().mouseClicked(e);
@@ -51,6 +54,7 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 	public void mousePressed(MouseEvent e) {
 		try{
 			if(myClient.isInputEnabled() || e.getSource() == this){
+				System.out.println(e.toString());
 				e.setSource(cancan);
 				x = e.getX();
 				y = e.getY();cancan.getSlaveMouseListener().mousePressed(e);
@@ -61,6 +65,7 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 	public void mouseReleased(MouseEvent e) {
 		try{
 			if(myClient.isInputEnabled() || e.getSource() == this){
+				System.out.println(e.toString());
 				e.setSource(cancan);
 				x = e.getX();
 				y = e.getY();cancan.getSlaveMouseListener().mouseReleased(e);
@@ -91,5 +96,14 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 	}
 	public Point getPoint() {
 		return new Point(x,y);
+	}
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		try{
+			if(myClient.isInputEnabled() || e.getSource() == this){
+				e.setSource(cancan);
+				cancan.getSlaveMouseWheelListener();
+			}
+		}catch(Exception ex){}
 	}
 }
