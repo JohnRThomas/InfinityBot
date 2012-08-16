@@ -1,18 +1,21 @@
-package org.infinity.bot.api.action;
+package org.infinity.bot.api.script;
 
-import org.infinity.bot.api.script.Script;
+import org.infinity.bot.api.action.Action;
+import org.infinity.bot.api.action.ActionTree;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
-public class ActionScript extends Script {
+public abstract class ActionScript extends Script {
 
 	private final List<Action> actions = new ArrayList<Action>();
 
 	public void submit(final Action... actions) {
 		Collections.addAll(this.actions, actions);
 	}
+
+	public abstract boolean setup();
 
 	@Override
 	public final int loop() {
