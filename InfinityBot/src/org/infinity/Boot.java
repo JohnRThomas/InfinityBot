@@ -1,5 +1,6 @@
 package org.infinity;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,13 +10,15 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
+import org.infinity.bot.internals.utils.HexImageConstants;
+import org.infinity.bot.internals.utils.HexUtil;
+import org.infinity.ui.Splash;
+
 public class Boot {
 	public static void main(final String args[]) throws Exception {	
 		try {
-			/*final BufferedImage logo = ImageIO.read(new URL("http://forums.infinitybot.org/public/style_images/brave/logo.png"));
-			System.out.println("Done loading picture");
-			
-			new Splash(logo);*/
+			final BufferedImage logo = HexUtil.getImageFromHex(HexImageConstants.logo);
+			Splash splash = new Splash(logo);
 			
 			String location = Boot.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 			location = location.replace('\\', '/');
@@ -33,10 +36,11 @@ public class Boot {
 			for(int i = 0; i < jarLoc.length; i++){
 				builder.append(jarLoc[i]+";");
 				if(!jarLoc[i].exists()){
+					splash.changeImage(HexUtil.getImageFromHex(HexImageConstants.loadingImages));
 					final File curFile = jarLoc[i];
 					new File(curFile.getParent()).mkdir();
 					curFile.createNewFile();
-					new Thread(){
+					Thread run = new Thread(){
 						@Override
 						public void run() {
 							try {
@@ -55,11 +59,16 @@ public class Boot {
 							}			
 						}
 
-					}.start();
+					};
+					run.start();
+					run.join();
 				}
 			}
+			splash.changeImage(HexUtil.getImageFromHex(HexImageConstants.logo));
 			builder.append("\" org.infinity.ui.InfinityGUI");
 			Runtime.getRuntime().exec(builder.toString());
+			Thread.sleep(1500);
+			splash.dispose();
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
