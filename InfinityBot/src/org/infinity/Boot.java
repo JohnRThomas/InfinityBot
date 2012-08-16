@@ -12,6 +12,11 @@ import java.nio.channels.ReadableByteChannel;
 public class Boot {
 	public static void main(final String args[]) throws Exception {	
 		try {
+			/*final BufferedImage logo = ImageIO.read(new URL("http://forums.infinitybot.org/public/style_images/brave/logo.png"));
+			System.out.println("Done loading picture");
+			
+			new Splash(logo);*/
+			
 			String location = Boot.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 			location = location.replace('\\', '/');
 			location = location.replace("%20", " ");

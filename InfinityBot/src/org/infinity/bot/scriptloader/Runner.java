@@ -1,10 +1,10 @@
 package org.infinity.bot.scriptloader;
  
-import org.infinity.bot.Client;
  
 import org.infinity.bot.api.script.Script;
  
 import org.infinity.bot.api.utils.Time;
+import org.infinity.bot.internals.Client;
  
 public class Runner extends Thread implements Runnable {
  

@@ -2,7 +2,7 @@ package org.infinity.bot.loader;
 
 import java.awt.BorderLayout;
 
-import org.infinity.bot.Client;
+import org.infinity.bot.internals.Client;
 
 public class DownloadThread extends Thread {
 

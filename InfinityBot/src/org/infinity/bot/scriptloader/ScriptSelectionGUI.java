@@ -28,10 +28,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
-import org.infinity.bot.Client;
 import org.infinity.bot.api.script.Script;
 import org.infinity.bot.api.script.ScriptManifest;
 import org.infinity.bot.api.script.ScriptManifest.Categories;
+import org.infinity.bot.internals.Client;
 import org.infinity.ui.InfinityButton;
 
 

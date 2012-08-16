@@ -15,9 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import org.infinity.bot.Client;
 import org.infinity.bot.api.script.Script;
 import org.infinity.bot.api.script.ScriptManifest.Categories;
+import org.infinity.bot.internals.Client;
 
 public class CategoryPanel extends JPanel implements MouseListener, MouseMotionListener{
 	private static final long serialVersionUID = 1L;

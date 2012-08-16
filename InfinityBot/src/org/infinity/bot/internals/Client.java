@@ -1,4 +1,4 @@
-package org.infinity.bot;
+package org.infinity.bot.internals;
 
 import icons.IconFactory;
 

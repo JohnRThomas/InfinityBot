@@ -14,8 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.infinity.bot.Client;
 import org.infinity.bot.api.script.Script;
+import org.infinity.bot.internals.Client;
 
 public class ScriptPanel extends JPanel implements MouseListener, MouseMotionListener{
 	private static final long serialVersionUID = -8735648526505335657L;

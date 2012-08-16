@@ -1,8 +1,8 @@
 package org.infinity.bot.api;
 
-import org.infinity.bot.Client;
-import org.infinity.bot.KeyboardManager;
-import org.infinity.bot.MouseManager;
+import org.infinity.bot.internals.Client;
+import org.infinity.bot.internals.KeyboardManager;
+import org.infinity.bot.internals.MouseManager;
 
 import java.awt.image.BufferedImage;
 

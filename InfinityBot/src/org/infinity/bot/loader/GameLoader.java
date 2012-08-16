@@ -23,7 +23,7 @@ import java.util.jar.JarEntry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.infinity.bot.Client;
+import org.infinity.bot.internals.Client;
 
 /**
  * @author Infinity

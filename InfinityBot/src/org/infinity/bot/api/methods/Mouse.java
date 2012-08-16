@@ -4,9 +4,9 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-import org.infinity.bot.MouseManager;
 import org.infinity.bot.api.APIManager;
 import org.infinity.bot.api.utils.Random;
+import org.infinity.bot.internals.MouseManager;
 
 
 public class Mouse{
