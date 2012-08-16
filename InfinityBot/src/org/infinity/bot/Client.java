@@ -234,11 +234,11 @@ public class Client extends Container implements ClientActions{
 		enableButtons();
 	}
 	public void pauseScript(){
-		scriptRunner.setPause(true);
+		scriptRunner.setPaused(true);
 		enableButtons();
 	}	
 	public void resumeScript(){
-		scriptRunner.setPause(false);
+		scriptRunner.setPaused(false);
 		enableButtons();
 	}
 	private void makeMenuBar() {

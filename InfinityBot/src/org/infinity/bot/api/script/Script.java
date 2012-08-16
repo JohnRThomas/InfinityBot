@@ -46,15 +46,15 @@ public abstract class Script{
 	}
 
 	public final void log(final Object str) {
-		runner.getMyClient().log(manifest.Name(), str);
+		runner.getClient().log(manifest.Name(), str);
 	}
 
 	public final void log(final Object str, final Color textCol) {
-		runner.getMyClient().log(manifest.Name(), str, textCol);
+		runner.getClient().log(manifest.Name(), str, textCol);
 	}
 
 	public final void log(final Object str, final Color textCol, final Color backCol) {
-		runner.getMyClient().log(manifest.Name(), str, textCol, backCol);
+		runner.getClient().log(manifest.Name(), str, textCol, backCol);
 	}
 
 	protected final boolean isPaused() {

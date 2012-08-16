@@ -1,9 +1,12 @@
 package org.infinity;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 
 public class Boot {
-
 	public static void main(final String args[]) throws Exception {
 		try {
 			String location = Boot.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -17,19 +20,21 @@ public class Boot {
 			builder.append(location.substring(1)).append("\"");
 			builder.append(" -Xmx1024m");
 			builder.append(" -Xbootclasspath/p:\"");
-			if (!new File("./lib/substance.jar").exists()){
-				
+			final File baseFolder = new File(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "InfinityBot" + File.separator + "Lib");
+            final File [] jarLoc = {new File(baseFolder + File.separator + "InfinityX.jar"),new File(baseFolder + File.separator + "substance.jar"),new File(baseFolder + File.separator + "trident.jar"),new File(baseFolder + File.separator + "Icons.jar")};
+			for(int i = 0; i < jarLoc.length; i++){
+				builder.append(jarLoc[i]+";");
+				if(!jarLoc[i].exists()){
+				    new File(jarLoc[i].getParent()).mkdir();
+					jarLoc[i].createNewFile();
+					final URL website = new URL("http://www.infinitybot.org/bot/" + jarLoc[i].getName());
+				    final ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+				    final FileOutputStream fos = new FileOutputStream(jarLoc[i]);
+				    fos.getChannel().transferFrom(rbc, 0, 1 << 24);
+				    rbc.close();
+				    fos.close();
+				}
 			}
-			if (!new File("./lib/InfinityX.jar").exists()){
-				
-			}
-			if (!new File("./lib/trident.jar").exists()){
-				
-			}
-			if (!new File("./lib/Icons.jar").exists()){
-				
-			}
-			builder.append("./lib/substance.jar;./lib/trident.jar;./lib/Icons.jar;./lib/InfinityX.jar");
 			builder.append("\" org.infinity.ui.InfinityGUI");
 			Runtime.getRuntime().exec(builder.toString());
 		} catch (final Exception e) {
