@@ -159,7 +159,7 @@ public class Client extends Container implements ClientActions{
 			g.fillRect(40, idy-10, 20, 15);
 			g.setColor(Color.WHITE);
 			g.drawRect(40, idy-10, 20, 15);
-			g.drawString("(R: " + col.getRed() + "G: " + col.getGreen() + "B: " + col.getBlue() + ") RGB: " + col.getRGB(),75,idy);
+			g.drawString("(R: " + col.getRed() + " G: " + col.getGreen() + " B: " + col.getBlue() + ") RGB: " + col.getRGB(),75,idy);
 		}
 		if(showMouseCross){
 			g.drawLine(mouse.getX(),0,mouse.getX(),2100);
