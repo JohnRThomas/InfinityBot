@@ -85,8 +85,9 @@ public class Client extends Container implements ClientActions{
 	};
 	private Script myScript = null;
 	private APIManager myAPIManager;
-	private boolean showMouse = true;
-	private boolean showColor = true;
+	private boolean showMouse = false;
+	private boolean showColor = false;
+	private boolean showMouseCross = false;
 
 	@SuppressWarnings("static-access")
 	public Client(){
@@ -142,12 +143,15 @@ public class Client extends Container implements ClientActions{
 		if(isScriptRunning)myScript.paint(g);
 		int idy = 20;
 		g.setColor(Color.WHITE);
-		if(showMouse)g.drawString("Mouse position: (" + mouse.x+ ", " + mouse.y +")", 5, idy);
-		if(showColor ){
-			g.drawString("Color: ", 5, idy+=20);
+		if(showMouse){
+			g.drawString("Mouse position: (" + mouse.getX()+ ", " + mouse.getY() +")", 5, idy);
+			idy+=20;
+		}
+		if(showColor){
+			g.drawString("Color: ", 5, idy);
 			Color col;
 			try{
-				col = new Color(getImage().getRGB(mouse.x, mouse.y));
+				col = new Color(getImage().getRGB(mouse.getX(), mouse.getY()));
 			}catch(ArrayIndexOutOfBoundsException e){
 				col = Color.BLACK;
 			}
@@ -156,6 +160,10 @@ public class Client extends Container implements ClientActions{
 			g.setColor(Color.WHITE);
 			g.drawRect(40, idy-10, 20, 15);
 			g.drawString("(R: " + col.getRed() + "G: " + col.getGreen() + "B: " + col.getBlue() + ") RGB: " + col.getRGB(),75,idy);
+		}
+		if(showMouseCross){
+			g.drawLine(mouse.getX(),0,mouse.getX(),2100);
+			g.drawLine(0,mouse.getY(),2100,mouse.getY());
 		}
 	}
 	public Applet getApplet() {
@@ -252,7 +260,16 @@ public class Client extends Container implements ClientActions{
 		pause.setEnabled(false);
 		stop.setEnabled(false);
 		rerun.setEnabled(false);
-
+		
+		JMenu tools = new JMenu("Tools");
+		JMenuItem mousePos = new JMenuItem("Mouse Position");
+		JMenuItem mouseCol = new JMenuItem("Mouse Color");
+		JMenuItem mouseCrossHair = new JMenuItem("Mouse Crosshair");
+		tools.add(mousePos);
+		tools.add(mouseCol);
+		tools.add(mouseCrossHair);
+		menu.add(tools);
+		
 		startB.setToolTipText("Start");
 		pauseB.setToolTipText("Pause");
 		stopB.setToolTipText("Stop");
@@ -367,6 +384,26 @@ public class Client extends Container implements ClientActions{
 					setInputEnabled(true);
 					inputB.setIcon(ico.getKey());
 				}
+			}
+		});
+
+		//Tools menu listeners
+		mousePos.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showMouse = !showMouse;
+			}
+		});
+		mouseCol.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showColor = !showColor;
+			}
+		});
+		mouseCrossHair.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showMouseCross = !showMouseCross;
 			}
 		});
 	}

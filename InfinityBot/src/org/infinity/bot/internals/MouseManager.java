@@ -15,7 +15,7 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 
 	protected GameCanvas cancan;
 	private final Client myClient;
-	int x = 0, y = 0;
+	private int x = 0, y = 0;
 	public MouseManager(Client cli) {
 		myClient = cli;
 	}
@@ -23,7 +23,7 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 	public void mouseClicked(MouseEvent e) {
 		try{
 			if(myClient.isInputEnabled() || e.getSource() == this){
-				System.out.println(e.toString());
+				//System.out.println(e.toString());
 				e.setSource(cancan);
 				x = e.getX();
 				y = e.getY();cancan.getSlaveMouseListener().mouseClicked(e);
@@ -54,7 +54,7 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 	public void mousePressed(MouseEvent e) {
 		try{
 			if(myClient.isInputEnabled() || e.getSource() == this){
-				System.out.println(e.toString());
+				//System.out.println(e.toString());
 				e.setSource(cancan);
 				x = e.getX();
 				y = e.getY();cancan.getSlaveMouseListener().mousePressed(e);
@@ -65,7 +65,7 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 	public void mouseReleased(MouseEvent e) {
 		try{
 			if(myClient.isInputEnabled() || e.getSource() == this){
-				System.out.println(e.toString());
+				//System.out.println(e.toString());
 				e.setSource(cancan);
 				x = e.getX();
 				y = e.getY();cancan.getSlaveMouseListener().mouseReleased(e);
@@ -105,5 +105,11 @@ public class MouseManager  extends Component implements MouseListener, MouseMoti
 				cancan.getSlaveMouseWheelListener();
 			}
 		}catch(Exception ex){}
+	}
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
 	}
 }

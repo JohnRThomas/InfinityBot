@@ -70,8 +70,8 @@ public class InfinityGUI extends JFrame {
 	}
 
 	public InfinityGUI() {
-		super("Infinity Bot vB1.0");
-		makeTitleBar("Infinity Bot vB1.0");
+		super("Infinity Bot vB1.1");
+		makeTitleBar("Infinity Bot vB1.1");
 		final BufferedImage image = new BufferedImage(ico.getFavi().getIconWidth(), ico.getFavi().getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 		ico.getFavi().paintIcon(null, image.getGraphics(), 0, 0);
 		setIconImage(image);
