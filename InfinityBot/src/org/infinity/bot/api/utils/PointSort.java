@@ -1,4 +1,4 @@
-package api;
+package org.infinity.bot.api.utils;
 
 import java.awt.Point;
 import java.util.Arrays;
